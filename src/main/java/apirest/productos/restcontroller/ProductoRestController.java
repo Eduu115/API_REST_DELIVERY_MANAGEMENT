@@ -49,4 +49,16 @@ public class ProductoRestController {
 		return ps.deleteById(id);
 	}
 	
+	// specific end points
+	
+	@GetMapping("/stock-menor/{stock}")
+	private List<Producto> porStockMenor(@PathVariable int stock){
+		return ps.porStockMenor(stock);
+	}
+	
+	@GetMapping("/por-categoria/{idCategoria}")
+	private List<Producto> porCategoria(@PathVariable int idCategoria){
+		return ps.porIdCategoria(idCategoria);
+	}
+	
 }

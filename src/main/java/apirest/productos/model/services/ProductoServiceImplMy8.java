@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import apirest.productos.model.entities.Producto;
+import apirest.productos.repository.CategoriaRepository;
 import apirest.productos.repository.ProductoRepository;
 
 @Service
@@ -13,6 +14,8 @@ public class ProductoServiceImplMy8 implements ProductoService{
 
 	@Autowired
 	private ProductoRepository prepo;
+	@Autowired
+	private CategoriaRepository crepo;
 	
 	@Override
 	public Producto findById(int idProducto) {
@@ -66,6 +69,18 @@ public class ProductoServiceImplMy8 implements ProductoService{
 		}else {
 			return 0;			
 		}
+	}
+
+	@Override
+	public List<Producto> porStockMenor(int stock) {
+		// TODO Auto-generated method stub
+		return prepo.findByStockIsLessThan(stock);
+	}
+
+	@Override
+	public List<Producto> porIdCategoria(int idCategoria) {
+		// TODO Auto-generated method stub
+		return prepo.findByCategoria(crepo.findById(idCategoria).orElse(null));
 	}
 
 }
