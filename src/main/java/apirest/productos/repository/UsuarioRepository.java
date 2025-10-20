@@ -1,0 +1,8 @@
+package apirest.productos.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import apirest.productos.model.entities.Usuario;
+
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
+
+}
