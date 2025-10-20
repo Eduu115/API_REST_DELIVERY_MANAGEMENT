@@ -47,7 +47,7 @@ public class ProductoServiceImplMy8 implements ProductoService{
 		// TODO Auto-generated method stub
 		if (findById(producto.getIdProducto()) != null) {
 			try {
-				return updateOne(producto);
+				return prepo.save(producto);
 			} catch (Exception e) {
 				e.getCause();
 			}

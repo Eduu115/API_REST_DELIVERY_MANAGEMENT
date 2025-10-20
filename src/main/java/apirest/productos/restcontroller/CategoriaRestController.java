@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import apirest.productos.model.dto.CategoriaDto;
 import apirest.productos.model.entities.Categoria;
 import apirest.productos.model.services.CategoriaServiceImplMy8;
 
@@ -40,8 +41,16 @@ public class CategoriaRestController {
 	}
 	
 	@PutMapping("/{id}")
-	private Categoria actualizar(@PathVariable int id) {
-		return cs.updateOne(cs.findById(id));
+	private Categoria actualizar(@PathVariable int id, @RequestBody CategoriaDto categoriaDto) {
+		
+		// obtain original category
+		Categoria categoria = cs.findById(id);
+		
+		// set original category the new data
+		categoria.setDescripcion(categoriaDto.getDescripcion());
+		categoria.setNombre(categoriaDto.getNombre());
+		
+		return cs.updateOne(categoria);
 	}
 	
 	@DeleteMapping("/{id}")

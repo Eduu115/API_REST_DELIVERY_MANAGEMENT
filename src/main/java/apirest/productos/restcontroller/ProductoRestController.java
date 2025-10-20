@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import apirest.productos.model.dto.ProductoDto;
 import apirest.productos.model.entities.Producto;
+import apirest.productos.model.services.CategoriaServiceImplMy8;
 import apirest.productos.model.services.ProductoServiceImplMy8;
 
 @RestController
@@ -23,6 +25,8 @@ public class ProductoRestController {
 
 	@Autowired
 	private ProductoServiceImplMy8 ps;
+	@Autowired
+	private CategoriaServiceImplMy8 cs;
 	
 	@GetMapping("/")
 	private List<Producto> todos(){
@@ -40,7 +44,18 @@ public class ProductoRestController {
 	}
 	
 	@PutMapping("/{id}")
-	private Producto actualizar(@PathVariable int id) {
+	private Producto actualizar(@PathVariable int id, @RequestBody ProductoDto productoDto) {
+	
+		// fetch original product
+		Producto producto = ps.findById(id);
+		
+		// update
+		producto.setNombre(productoDto.getNombre());
+		producto.setPrecio(productoDto.getPrecio());
+		producto.setStock(productoDto.getStock());
+		
+		producto.setCategoria(cs.findById(productoDto.getIdCategoria()));
+		
 		return ps.updateOne(ps.findById(id));
 	}
 	
