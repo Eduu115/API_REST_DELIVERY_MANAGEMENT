@@ -1,6 +1,6 @@
 package apirest.productos.restcontroller;
 
-import java.util.Map;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import apirest.productos.model.dto.LineasPedidoDto;
 import apirest.productos.model.services.LineasPedidoServiceImplMy8;
 
 @RestController
@@ -16,11 +17,12 @@ import apirest.productos.model.services.LineasPedidoServiceImplMy8;
 @RequestMapping("/lineapedido")
 public class LineasPedidoRestController {
 
-	@Autowired
+	@Autowired 
 	private LineasPedidoServiceImplMy8 lps;
 	
 	@GetMapping("/venta-productos/{idPedido}")
-	private Map<String, Integer> cantidadTotalDePedido(@PathVariable int idPedido){
+	private List<LineasPedidoDto> cantidadTotalDePedido(@PathVariable int idPedido){
+
 		return lps.cantidadAgrupadaPorProducto(idPedido);
 	}
 	

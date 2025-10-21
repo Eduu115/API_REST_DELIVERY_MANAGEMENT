@@ -1,9 +1,11 @@
 package apirest.productos.model.services;
 
-import java.util.Map;
+import java.util.List;
+
+import apirest.productos.model.dto.LineasPedidoDto;
 
 public interface LineasPedidoService {
 
-	public Map<String, Integer> cantidadAgrupadaPorProducto(int numeroOrden);
+	public List<LineasPedidoDto> cantidadAgrupadaPorProducto(int idPedido);
 
 }
