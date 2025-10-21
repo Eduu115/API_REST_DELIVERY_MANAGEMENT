@@ -23,9 +23,9 @@ public class LineasPedidoServiceImplMy8 implements LineasPedidoService{
 	@Override
 	public List<LineasPedidoDto> cantidadAgrupadaPorProducto(int pedidoId) {
         Map<String, Integer> totalesPorProducto = lprepo.findByPedido(prepo.findById(pedidoId).orElse(null)).stream()
-                .collect(Collectors.groupingBy(
-                        lp -> lp.getProducto().getNombre(),              // agrupamos por producto
-                        Collectors.summingInt(LineasPedido::getCantidad) // sumamos cantidades
+                .collect(Collectors.groupingBy( // Hacemos groupBy con las 2 columnas que queremos
+                        lp -> lp.getProducto().getNombre(),              // col 1: agrupamos por nombre de prod
+                        Collectors.summingInt(LineasPedido::getCantidad) // col 2: suma de las cantidades
                 ));
 
         return totalesPorProducto.entrySet().stream()
